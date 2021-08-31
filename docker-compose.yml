@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: "postgres:12"
+    container_name: "zios_pizza_db"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=zios_pizza_dev
+    volumes:
+      - /var/lib/postgresql/data
