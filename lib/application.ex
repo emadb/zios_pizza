@@ -6,9 +6,13 @@ defmodule ZiosPizza.Application do
     children = [
       {Plug.Cowboy, scheme: :http, plug: ZiosPizza.Router, options: [port: 4000]},
       ZiosPizza.Repo,
+      {Registry, [keys: :duplicate, name: ZiosPizza.PubSub.Registry]},
       {ZiosPizza.Pizzas.Cache, []},
       {Registry, [keys: :unique, name: ZiosPizza.Carts.Registry]},
-      {ZiosPizza.Carts.Gateway, []}
+      {Registry, [keys: :unique, name: ZiosPizza.Slots.Registry]},
+      {ZiosPizza.ProcessManager, []},
+      {ZiosPizza.Carts.Gateway, []},
+      {ZiosPizza.Slots.Gateway, []}
     ]
 
     opts = [strategy: :one_for_one, name: ZiosPizza.Supervisor]

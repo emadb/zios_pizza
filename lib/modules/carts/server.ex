@@ -23,6 +23,33 @@ defmodule ZiosPizza.Carts.Server do
     {:reply, {:ok, new_state}, new_state}
   end
 
+  def handle_call({:set_slot, payload}, _from, state) do
+    new_state = Cart.set_slot(state, payload)
+    set_slot_timeout(new_state.reserved_slot)
+    {:reply, {:ok, new_state}, new_state}
+  end
+
+  def handle_call(:stop_cart, _from, state) do
+    {:stop, :shutdown, :ok, state}
+  end
+
+  def handle_info(:verify_slot_status, state) do
+    new_state = Cart.release_slot(state)
+
+    ZiosPizza.Broker.publish(
+      {:release_slot, %{user_id: state.user_id, datetime: state.reserved_slot}}
+    )
+
+    {:noreply, new_state}
+  end
+
+  defp set_slot_timeout(nil), do: :ok
+
+  defp set_slot_timeout(_) do
+    Process.send_after(self(), :verify_slot_status, 1000 * 60 * 10)
+    :ok
+  end
+
   defp via_tuple(user_id) do
     {:via, Registry, {ZiosPizza.Carts.Registry, user_id}}
   end

@@ -43,6 +43,7 @@ defmodule ZiosPizza.Carts.Router do
   defp project_cart(cart) do
     %{
       total: cart.total,
+      reserved_slot: cart.reserved_slot,
       pizzas:
         Enum.map(cart.pizzas, fn p ->
           %{
