@@ -34,4 +34,11 @@ defmodule ZiosPizza.ProcessManager do
 
     {:noreply, state}
   end
+
+  def handle_info({:order_ready, order}, state) do
+    OrderGateway.execute(order.code, {:set_ready, order})
+    # notifiy biker
+    # IO.inspect(order, label: "Order ready")
+    {:noreply, state}
+  end
 end

@@ -5,6 +5,11 @@ defmodule ZiosPizza.Application do
   def start(_type, _args) do
     children = [
       {Plug.Cowboy, scheme: :http, plug: ZiosPizza.Router, options: [port: 4000]},
+      :poolboy.child_spec(:worker,
+        name: {:local, :pizziolo_worker},
+        worker_module: ZiosPizza.Kitchen.Pizzaiolo,
+        size: 5
+      ),
       ZiosPizza.Repo,
       {Registry, [keys: :duplicate, name: ZiosPizza.PubSub.Registry]},
       {ZiosPizza.Pizzas.Cache, []},
@@ -16,7 +21,8 @@ defmodule ZiosPizza.Application do
       {ZiosPizza.Carts.Gateway, []},
       {ZiosPizza.Slots.Gateway, []},
       {ZiosPizza.Orders.Gateway, []},
-      {ZiosPizza.Scheduler.Gateway, []}
+      {ZiosPizza.Scheduler.Gateway, []},
+      {ZiosPizza.Kitchen.Gateway, []}
     ]
 
     opts = [strategy: :one_for_one, name: ZiosPizza.Supervisor]
