@@ -19,5 +19,7 @@ defmodule ZiosPizza.Router do
     |> send_resp(200, Jason.encode!(%{version: version}))
   end
 
+  forward("/pizzas", to: ZiosPizza.Pizzas.Router)
+
   match(_, do: send_resp(conn, 404, "Not found"))
 end
