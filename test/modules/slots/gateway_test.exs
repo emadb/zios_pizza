@@ -46,6 +46,5 @@ defmodule ZiosPizza.Sots.GatewayTest do
       {:ok, _} = Gateway.execute(datetime, {:create_or_update, %{capacity: 5}})
       ZiosPizza.DelayAsserts.wait_until(fn -> server_alive?(datetime) == false end)
     end
-
   end
 end
