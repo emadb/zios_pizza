@@ -11,10 +11,12 @@ defmodule ZiosPizza.Application do
       {Registry, [keys: :unique, name: ZiosPizza.Carts.Registry]},
       {Registry, [keys: :unique, name: ZiosPizza.Slots.Registry]},
       {Registry, [keys: :unique, name: ZiosPizza.Orders.Registry]},
+      {Registry, [keys: :unique, name: ZiosPizza.Scheduler.Registry]},
       {ZiosPizza.ProcessManager, []},
       {ZiosPizza.Carts.Gateway, []},
       {ZiosPizza.Slots.Gateway, []},
-      {ZiosPizza.Orders.Gateway, []}
+      {ZiosPizza.Orders.Gateway, []},
+      {ZiosPizza.Scheduler.Gateway, []}
     ]
 
     opts = [strategy: :one_for_one, name: ZiosPizza.Supervisor]
