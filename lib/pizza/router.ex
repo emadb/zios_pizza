@@ -12,8 +12,10 @@ defmodule ZiosPizza.Pizza.Router do
   plug(:dispatch)
 
   get "/" do
+    term = Map.get(conn.query_params, "search", "")
+
     pizzas =
-      Repo.get_all()
+      Repo.search_by(term)
       |> map_pizza()
       |> Jason.encode!()
 
@@ -25,5 +27,4 @@ defmodule ZiosPizza.Pizza.Router do
       %{id: p.id, name: p.name, price: p.price}
     end)
   end
-
 end

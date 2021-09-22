@@ -26,11 +26,9 @@ defmodule ZiosPizza.Pizza.RouterTest do
 
     assert Enum.count(res) == 2
     assert Enum.all?(res, fn p ->
-      p.name
+      p["name"]
       |> String.downcase()
       |> String.starts_with?("mar")
     end)
-
   end
-
 end
