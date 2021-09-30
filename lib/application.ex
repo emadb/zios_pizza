@@ -13,6 +13,7 @@ defmodule ZiosPizza.Application do
       {Registry, [keys: :unique, name: ZiosPizza.Slots.Registry]},
       {Registry, [keys: :unique, name: ZiosPizza.Orders.Registry]},
       {Registry, [keys: :unique, name: ZiosPizza.Scheduler.Registry]},
+      {Registry, [keys: :unique, name: ZiosPizza.Pizzaiolo.Registry]},
       {ZiosPizza.ProcessManager, []},
       {ZiosPizza.Carts.Gateway, []},
       {ZiosPizza.Slots.Gateway, []},

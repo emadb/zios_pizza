@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :zios_pizza,
-  available_pizzaioli: 1,
+  available_pizzaioli: 2,
   prepare_time: 1000..2000
 
 config :zios_pizza, ZiosPizza.Repo,
