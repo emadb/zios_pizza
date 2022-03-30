@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :zios_pizza, ZiosPizza.Repo,
   database: "zios_pizza_dev",

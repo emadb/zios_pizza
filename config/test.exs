@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :zios_pizza,
   available_pizzaioli: 2,

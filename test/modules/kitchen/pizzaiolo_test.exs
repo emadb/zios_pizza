@@ -4,8 +4,8 @@ defmodule ZiosPizza.Kitchen.PizzaioloTest do
   alias ZiosPizza.Kitchen.Pooler
 
   describe "Pizzaiolo" do
-    test "A" do
-      # TODO: Test the pizza building process
+    test "Test the pizza building process" do
+      # TODO
     end
   end
 end
