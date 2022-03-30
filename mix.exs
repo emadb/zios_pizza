@@ -63,7 +63,7 @@ defmodule ZiosPizza.MixProject do
       {:ex_json_schema, "~> 0.7.4"},
       {:remix, "~> 0.0.2", only: :dev},
       {:mock, "~> 0.3.0", only: :test},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false}
     ]
   end
