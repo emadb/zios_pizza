@@ -8,7 +8,7 @@ config :zios_pizza, ZiosPizza.Repo,
   database: "zios_pizza_test",
   username: "postgres",
   password: "postgres",
-  hostname: "postgres",
+  hostname: System.get_env("DB_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :logger, level: :info
