@@ -57,7 +57,7 @@ defmodule ZiosPizza.Carts.RouterTest do
       res = Jason.decode!(conn.resp_body)
 
       assert conn.status == 200
-      assert res == %{"pizzas" => [], "total" => 0, "reserved_slot" => nil}
+      assert res == %{"pizzas" => [], "total" => 0}
     end
   end
 end
