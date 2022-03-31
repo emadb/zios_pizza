@@ -1,7 +1,6 @@
 defmodule ZiosPizza.ProcessManager do
   use GenServer
   alias ZiosPizza.Carts.Gateway, as: CartGateway
-  alias ZiosPizza.Orders.Gateway, as: OrderGateway
   alias ZiosPizza.Scheduler.Gateway, as: SchedulerGateway
   alias ZiosPizza.Slots.Gateway, as: SlotGateway
   alias ZiosPizza.Utils.Functions
@@ -32,13 +31,6 @@ defmodule ZiosPizza.ProcessManager do
     scheduled_time = Functions.subtract_minutes(order.reserved_slot, @minutes_to_deliver_a_pizza)
     {:ok, _} = SchedulerGateway.schedule(scheduled_time, order)
 
-    {:noreply, state}
-  end
-
-  def handle_info({:order_ready, order}, state) do
-    OrderGateway.execute(order.code, {:set_ready, order})
-    # notifiy biker
-    # IO.inspect(order, label: "Order ready")
     {:noreply, state}
   end
 end
