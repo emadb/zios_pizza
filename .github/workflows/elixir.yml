@@ -28,7 +28,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ./_build/plts/
-        key: ${{ runner.os }}-${{ github.ref }}-${{ hashFiles('mix.lock') }}
+        key: plt-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('mix.lock') }}
     - name: Install Dependencies
       run: |
         mix local.rebar --force
