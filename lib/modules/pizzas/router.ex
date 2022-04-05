@@ -1,6 +1,8 @@
-defmodule ZiosPizza.Router do
+defmodule ZiosPizza.Pizzas.Router do
   use Plug.Router
   use Plug.ErrorHandler
+
+  alias ZiosPizza.Pizzas.Repo
 
   plug(Plug.Parsers,
     parsers: [:urlencoded, :json],
@@ -11,15 +13,18 @@ defmodule ZiosPizza.Router do
   plug(:match)
   plug(:dispatch)
 
-  get "/ping" do
-    version = Application.spec(:zios_pizza, :vsn) |> to_string()
+  get "/" do
+
+    pizzas = Enum.map(Repo.get_all(), &project/1)
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!(%{version: version}))
+    |> send_resp(200, Jason.encode!(pizzas))
   end
 
-  forward("/pizzas", to: ZiosPizza.Pizzas.Router)
+  defp project(p) do
+    %{id: p.id, name: p.name, price: p.price}
+  end
 
   match(_, do: send_resp(conn, 404, "Not found"))
 end
