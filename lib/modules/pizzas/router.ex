@@ -14,7 +14,6 @@ defmodule ZiosPizza.Pizzas.Router do
   plug(:dispatch)
 
   get "/" do
-
     pizzas = Enum.map(Repo.get_all(), &project/1)
 
     conn
