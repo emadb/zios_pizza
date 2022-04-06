@@ -20,6 +20,7 @@ defmodule ZiosPizza.Router do
   end
 
   forward("/pizzas", to: ZiosPizza.Pizzas.Router)
+  forward("/cart", to: ZiosPizza.Cart.Router)
 
   match(_, do: send_resp(conn, 404, "Not found"))
 end
