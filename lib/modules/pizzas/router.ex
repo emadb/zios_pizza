@@ -16,6 +16,8 @@ defmodule ZiosPizza.Pizzas.Router do
   get "/" do
     pizzas = Enum.map(Repo.get_all(), &project/1)
 
+    # ZiosPizza.Pizzas.Cache.load_pizzas()
+
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!(pizzas))
