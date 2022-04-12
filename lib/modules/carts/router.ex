@@ -16,7 +16,7 @@ defmodule ZiosPizza.Carts.Router do
   post "/" do
     user = conn.assigns[:user]
 
-    case CommandBuilder.build_add_pizza_cmd(conn.body_params) do
+    case CommandBuilder. build_add_pizza_cmd(conn.body_params) do
       {:ok, cmd} ->
         {:ok, cart} = Gateway.execute(user, cmd)
 
