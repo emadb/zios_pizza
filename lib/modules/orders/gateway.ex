@@ -11,14 +11,14 @@ defmodule ZiosPizza.Orders.Gateway do
     {:ok, _} = DynamicSupervisor.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def execute(user_id, cmd) do
-    user_id
+  def execute(code, cmd) do
+    code
     |> create_if_not_exists
     |> Server.execute(cmd)
   end
 
-  defp create_if_not_exists(user_id) do
-    _ = DynamicSupervisor.start_child(__MODULE__, {ZiosPizza.Orders.Server, [user_id]})
-    user_id
+  defp create_if_not_exists(code) do
+    _ = DynamicSupervisor.start_child(__MODULE__, {ZiosPizza.Orders.Server, [code]})
+    code
   end
 end
