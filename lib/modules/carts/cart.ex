@@ -14,15 +14,19 @@ defmodule ZiosPizza.Carts.Cart do
 
         _ ->
           Enum.reduce(state.pizzas, [], fn cp, acc ->
-            if cp.pizza_id == item.pizza_id do
-              acc ++ [CartItem.build(%{cp | qty: cp.qty + item.qty})]
-            else
-              acc ++ [cp]
-            end
+            acc ++ get_pizza(cp, item)
           end)
       end
 
     %{state | total: get_total(pizzas), pizzas: pizzas}
+  end
+
+  defp get_pizza(cp, item) when cp.pizza_id == item.pizza_id do
+    [CartItem.build(%{cp | qty: cp.qty + item.qty})]
+  end
+
+  defp get_pizza(cp, _) do
+    [cp]
   end
 
   def set_slot(state, payload) do
