@@ -4,7 +4,7 @@ defmodule ZiosPizza.Orders.Server do
   alias ZiosPizza.Orders.Order
   alias ZiosPizza.Orders.Repo
 
-  @timeout Application.get_env(:zios_pizza, :process_timeout)
+  @timeout Application.compile_env(:zios_pizza, :process_timeout)
 
   def start_link([code] = args) do
     GenServer.start_link(__MODULE__, args, name: via_tuple(code))

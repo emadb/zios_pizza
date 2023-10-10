@@ -3,7 +3,7 @@ defmodule ZiosPizza.Kitchen.Pizzaiolo do
   alias ZiosPizza.Broker
   alias ZiosPizza.Kitchen.Pooler
 
-  @prepare_time Application.get_env(:zios_pizza, :prepare_time)
+  @prepare_time Application.compile_env(:zios_pizza, :prepare_time)
 
   def start_link(name) do
     GenServer.start_link(__MODULE__, name, name: via_tuple(name))
